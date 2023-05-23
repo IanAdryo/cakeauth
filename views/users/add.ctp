@@ -3,7 +3,7 @@
 	<fieldset>
 		<legend><?php __('Register'); ?></legend>
 		<?php $this->Session->flash('auth'); ?>
-		<?php $this->Session->flash(); ?>
+		
 	<?php
 		echo $this->Form->input('name');
 		echo $this->Form->input('username');

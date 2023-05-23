@@ -5,9 +5,23 @@ class UsersController extends AppController {
 
 	function beforeFilter() {
 		
-		Parent::beforeFilter();
+		parent::beforeFilter();
 		$this->Auth->allow('add');
 
+		if ($this->action == 'add' || $this->action == 'edit') {
+			
+			$this->Auth->authenticate = $this->User;
+		}
+
+	}
+
+	function login(){
+
+	}
+
+	function logout(){
+
+		$this->redirect($this->Auth->logout());
 	}
 
 	function index() {

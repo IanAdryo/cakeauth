@@ -3,7 +3,7 @@
 	<fieldset>
 		<legend><?php __('Edit User'); ?></legend>
 		<?php $this->Session->flash('auth'); ?>
-		<?php $this->Session->flash(); ?>
+		
 		
 		<?php
 			echo $this->Form->input('id');

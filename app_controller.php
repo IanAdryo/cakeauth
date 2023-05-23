@@ -42,7 +42,9 @@ class AppController extends Controller {
         $this->Auth->loginRedirect = array('controller' => 'posts', 'action' => 'index');
         $this->Auth->logoutRedirect = array('controller' => 'posts', 'action' => 'index');
 
-        $this->set('admin', $this->isAdmin());
+        $this->set('admin', $this->_isAdmin());
+        $this->set('logged_in', $this->_loggedIn());
+        $this->set('users_username', $this->_usersUsername()); 
 
     }
     function _isAdmin() {
@@ -53,6 +55,25 @@ class AppController extends Controller {
             
             $admin = true;
         }
-        return $admin
+        return $admin;
+    }
+    function _loggedIn() {
+
+        $logged_in = false;
+        if ($this->Auth->user()) {
+            
+            $logged_in = true;
+        }
+        return $logged_in;
+    }
+    function _usersUsername(){
+
+        $users_username = false;
+        if ($this->Auth->user()) {
+
+            $users_username = $this->Auth->user('username');
+        }
+        return $users_username;
     }
 }
+?>
