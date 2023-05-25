@@ -3,19 +3,19 @@
 	<fieldset>
 		<legend><?php __('Edit User'); ?></legend>
 		<?php $this->Session->flash('auth'); ?>
-		
-		
-		<?php
-			echo $this->Form->input('id');
-			echo $this->Form->input('name');
-			echo $this->Form->input('username');
-			echo $this->Form->input('password');
-			echo $this->Form->input('password_confirmation', array('type' => 'password'));
-			if ($admin) {
 
-				echo $this->Form->input('roles');
-			}
+		<?php
+		echo $this->Form->input('id');
+		echo $this->Form->input('name');
+		echo $this->Form->input('username');
+		echo $this->Form->input('password', array('placeholder' => 'password', 'value' => ''));
+		echo $this->Form->input('password_confirmation', array('type' => 'password', 'placeholder' => 'password'));
+
+		if ($admin) {
+
 			echo $this->Form->input('roles');
+		}
+		
 		?>
 	</fieldset>
 	<?php echo $this->Form->end(__('Submit', true)); ?>

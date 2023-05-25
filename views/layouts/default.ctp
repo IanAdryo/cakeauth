@@ -51,7 +51,8 @@
 
 			<div id="user-nav" class="navbar">
 				<?php if ($logged_in) : ?>
-					Welcome, <?php echo $users_username; ?>. <?php echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')) ?>
+					
+					Welcome, <?php echo $admin ? 'admin ' : 'user '; ?><?php echo $users_username; ?>. <?php echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')); ?>
 				<?php else : ?>
 
 					<?php echo $this->Html->link('Register', array('controller' => 'users', 'action' => 'add')) ?> or <?php echo $this->Html->link('Login', array('controller' => 'users', 'action' => 'login')) ?>

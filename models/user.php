@@ -2,6 +2,8 @@
 class User extends AppModel {
 	var $name = 'User';
 	var $displayField = 'name';
+	
+
 	var $validate = array(
 		'name' => array(
 			'notempty' => array(
@@ -37,7 +39,7 @@ class User extends AppModel {
 				'message' => 'Please enter a password',
 			),
 			'The_password_must_be_betwween_5_and_15_characters' => array(
-				'rule' => array('between', 5, 15),
+				'rule' => array('between', 5, 35),
 				'message' => 'The password must be betwween 5 and 15 characters'
 			),
 			'The passwords do not match' => array(
@@ -50,11 +52,11 @@ class User extends AppModel {
 	
 	public function matchPasswords($data) {
 		
-		if ($data['password'] == $this->data['User']['password_confirmation']) {
+		if ($data['password'] == md5($this->data['User']['password_confirmation'])) {
 
 			return true;
 		}
-		$this->invalidate('password_confirmation', 'The passwords do not match');
+		$this->invalidate('password_confirmation', 'The passwords do not match ');
 		return false;
 	}
 
@@ -74,17 +76,28 @@ class User extends AppModel {
 		)
 	);
 
-	function hashPasswords($data) {
+	// function hashPasswords($data) {
 
-		if (isset($this->data['Users']['password'])) {
+	// 	if (isset($this->data['User']['password'])) {
 
-			$this->data['User']['password'] = Security::hash($this->data['Users']['password'], null, true);
+	// 		$this->data['User']['password'] = Security::hash($this->data['Users']['password'], null, true);
+	// 		return $data;
+	// 	}
+	// 	return $data;
+	// }
+	
+	function hashPasswords($data)
+	{
+		if (isset($data['User']['password'])) {
+			$data['User']['password'] = md5($data['User']['password']);
 			return $data;
 		}
 		return $data;
 	}
 
 	function beforeSave(){
+
+		$this->set('passss', $data['User']['password']);
 
 		$this->hashPasswords(null, true);
 		return true;

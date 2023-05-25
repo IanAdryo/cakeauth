@@ -35,8 +35,10 @@ class AppController extends Controller {
     var $components = array('Auth', 'Session'); 
 
     public function beforeFilter() {
-        
-        $this->Auth->allow('index', 'view');
+
+        $this->Auth->authenticate = ClassRegistry::init('User');
+        $this->Auth->authorize = 'controller';
+        $this->Auth->allow('index','view', 'logout');
         $this->Auth->authError = 'Please login to view that page';
         $this->Auth->loginError = 'Incorrect User/Password combination.';
         $this->Auth->loginRedirect = array('controller' => 'posts', 'action' => 'index');
@@ -47,11 +49,19 @@ class AppController extends Controller {
         $this->set('users_username', $this->_usersUsername()); 
 
     }
+
+    public function isAutorized() {
+
+        if ($this->Auth->user('role') != 'admin') {
+            $this->Auth->deny('delete', 'edit');
+        }
+    }
+    
     function _isAdmin() {
 
         $admin = false;
 
-        if ($this->Auth->user('role') == 'admin') {
+        if ($this->Auth->user('role') == 'admin ') {
             
             $admin = true;
         }

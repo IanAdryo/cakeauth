@@ -38,6 +38,7 @@ class UsersController extends AppController {
 	}
 
 	function add() {
+
 		if (!empty($this->data)) {
 			$this->User->create();
 			if ($this->User->save($this->data)) {
